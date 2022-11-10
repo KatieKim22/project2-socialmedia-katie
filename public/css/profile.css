@@ -1,0 +1,75 @@
+img{
+    height: 200px;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    height: 100vh;
+    width: 100%;
+    background-color: rgb(58, 97, 159);
+}
+
+header {
+    background-color: white;
+    height: 20%;
+    border-bottom: 3px solid #3a619f;
+}
+
+.profile-pic-div {
+    height: 200px;
+    width: 200px;
+    position: absolute;
+    top: 20%;
+    left: 25%;
+    transform: translate(-50%,-50%);
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1px solid grey;
+}
+
+#photo {
+    height: 100%;
+    width: 100%;
+}
+
+#file {
+    display: none;
+}
+
+#uploadBtn {
+    height: 40px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    background: rgba(0, 0, 0, alpha0.7);
+    color: teal;
+    line-height: 30px;
+    font-family: sans-serif;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+h1 {
+    font-family: sans-serif;
+    text-align: center;
+    font-size: 30px;
+    color: rgb(58, 97, 159);
+}
+
+main {
+    height: 500px;
+    width: 80%;
+    position: absolute;
+    top: 35%;
+    left: 10%;
+    border: 3px solid rgb(58, 97, 159);
+    background-color: white;
+}
