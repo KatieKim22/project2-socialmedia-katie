@@ -11,12 +11,13 @@ img{
 body{
     height: 100vh;
     width: 100%;
+    background-color: rgb(58, 97, 159);
 }
 
 header {
     background-color: white;
     height: 20%;
-    border-bottom: 3px solid rgb(58, 97, 159);
+    border-bottom: 3px solid #3a619f;
 }
 
 .profile-pic-div {
@@ -70,4 +71,5 @@ main {
     top: 35%;
     left: 10%;
     border: 3px solid rgb(58, 97, 159);
+    background-color: white;
 }
