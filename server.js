@@ -1,6 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcrypt')
 const session = require('express-session');
+const expressValidator = require('express-validator');
 const routes = require('./controllers');
 const path = require('path');
 
@@ -15,11 +16,10 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 const sess = {
-    secret: 'super secret',
+    secret: 'max security',
     cookie: {},
     resave: false,
-    // should set it to 'false?' -save initialized
-    saveuninitilized: true,
+    saveuninitilized: false,
     store: new sequelizeStore({
         db: sequelize
     })
@@ -29,6 +29,7 @@ app.use(session(sess));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(expressValidator());
 
 app.use(express.static(path.join(__dirname, 'public')));
 

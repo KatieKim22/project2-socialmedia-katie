@@ -1,3 +1,5 @@
+// change Project, projectData related to => profile data
+
 const sequelize = require('../config/connection');
 const { User, Project } = require('../models');
 
