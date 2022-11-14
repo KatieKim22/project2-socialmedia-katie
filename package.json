@@ -2,7 +2,7 @@
   "name": "project2_socialmedia",
   "version": "1.0.0",
   "description": "Project2_SocialMedia - group 7",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "devStart": "nodemon server.js"
