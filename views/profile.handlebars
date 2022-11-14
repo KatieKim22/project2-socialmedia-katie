@@ -1,16 +1,18 @@
 
-<body>
-    <header>
-        <h1>{{user}}'s Profile</h1>
+<div id="profile-body">
+    <header id="profile-head">
+        <h1 id="user-profile">{{user}}'s Profile</h1>
     </header>
     <div class="profile-pic-div">
         <img src="../../public/images/blank-profile-pic.png" id="photo">
         <input type="file" id="file">
         <label for="file" id="uploadBtn">Choose Photo</label>
     </div>
-    <div>
-        {{status}}
+    <div id="status-container">
+        <h2>All About Me</h2>
+        <p id="status">
+            {{status}}
+        </p>
     </div>
 
-</body>
-</html>
+</div>
