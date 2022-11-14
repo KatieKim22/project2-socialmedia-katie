@@ -1,9 +1,9 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
-class Profile extends Model { }
+class Status extends Model { }
 
-Profile.init(
+Status.init(
     {
         id: {
             type: DataTypes.INTEGER,
@@ -15,11 +15,13 @@ Profile.init(
             type: DataTypes.STRING,
             allowNull: false,
         },
-        status: {
+        detail: {
             type: DataTypes.STRING,
         },
-        userNickname: {
-            type: DataTypes.STRING,
+        date_created: {
+            type: DataTypes.DATE,
+            allowNull: false,
+            defaultValue: DataTypes.NOW,
         },
         user_id: {
             type: DataTypes.INTEGER,
@@ -32,26 +34,8 @@ Profile.init(
     {
         sequelize,
         timestamps: true,
-        modelName: 'profile',
+        modelName: 'status',
     }
 )
 
-module.exports = Profile;
-
-
-// const express = require("express");
-
-
-// const schema = express.Schema({
-//     name: String,
-//     email: String,
-//     pass: String,
-//     about: String,
-//     location: String,
-//     phone: String,
-//     sex: String,
-//     age: String,
-//     imgurl: String,
-//     state: [{ postid: String, method: String }]
-// })
-
+module.exports = Status;

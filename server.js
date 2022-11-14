@@ -15,21 +15,14 @@ const sequelizeStore = require('connect-session-sequelize')(session.Store);
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-const sess = {
-    secret: 'max security',
-    cookie: {},
-    resave: false,
-    saveuninitilized: false,
-    store: new sequelizeStore({
-        db: sequelize
-    })
-};
-
-app.use(session(sess));
+app.use(session({
+    secret: "max_secret",
+    resave: true,
+    saveUninitialized: true
+}));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(expressValidator());
 
 app.use(express.static(path.join(__dirname, 'public')));
 

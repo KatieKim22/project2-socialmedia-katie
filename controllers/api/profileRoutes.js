@@ -1,5 +1,5 @@
-const express = require('express');
-const router = express.Router();
+const router = require('express').Router();
+const { Profile, Status } = require('../../models')
 
 /* GET posts index /posts */
 router.get('/', (req, res, next) => {
@@ -7,32 +7,32 @@ router.get('/', (req, res, next) => {
 });
 
 /* GET posts new /posts/new */
-router.get ('/new', (req, res, next) => {
+router.get('/new', (req, res, next) => {
     res.send('/posts/new');
 });
 
 /* POST posts create /posts */
-router.post ('/', (req, res, next) => {
+router.post('/', (req, res, next) => {
     res.send('CREATE /posts');
 });
 
 /* GET posts show /posts/:id */
-router.get ('/:id', (req, res, next) => {
+router.get('/:id', (req, res, next) => {
     res.send('SHOW /post/:id');
 });
 
 /* GET posts edit /posts/:id/edit */
-router.get ('/:id/edit', (req, res, next) => {
+router.get('/:id/edit', (req, res, next) => {
     res.send('EDIT /posts/:id/edit');
 });
 
 /* PUT posts update /posts/:id */
-router.get ('/:id', (req, res, next) => {
+router.get('/:id', (req, res, next) => {
     res.send('UPDATE /posts/:id');
 });
 
 /* DELETE posts destroy /posts/:id */
-router.get ('/:id', (req, res, next) => {
+router.get('/:id', (req, res, next) => {
     res.send('DELETE /posts/:id');
 });
 

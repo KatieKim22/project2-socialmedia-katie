@@ -1,11 +1,11 @@
-var express = require('express');
-var router = express.Router()
+const router = require('express').Router();
+
+const { Profile, User, Status } = require('../models');
 
 // GET home page
 
-router.get('/', function (req, res, next) {
-    res.render('home', { title: 'Form Validation', success: req.session.success, errors: req.session.errors });
-    req.session.errors = null;
+router.get('/', (req, res) => {
+    res.render('home', { text: "Welcome to myFace" })
 });
 
 router.post('/submit', function (req, res, next) {
@@ -22,3 +22,8 @@ router.post('/submit', function (req, res, next) {
     }
     res.redirect('/');
 })
+
+module.exports = router;
+
+// { title: 'Form Validation', success: req.session.success, errors: req.session.errors });
+// req.session.errors = null;

@@ -25,9 +25,7 @@ User.init(
             type: DataTypes.STRING,
             allowNull: false,
         },
-        // user: {
-        //     type: DataTypes.STRING
-        // },
+
         password: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -43,9 +41,7 @@ User.init(
                 isEmail: true,
             },
         },
-        // location: {
-        //     type: DataTypes.STRING
-        // }
+
     },
     {
         hooks: {
@@ -68,3 +64,10 @@ User.init(
 );
 
 module.exports = User;
+
+        // user: {
+        //     type: DataTypes.STRING
+        // },
+                // location: {
+        //     type: DataTypes.STRING
+        // }

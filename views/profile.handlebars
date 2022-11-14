@@ -1,16 +1,32 @@
-
-<body>
-    <header>
-        <h1>{{user}}'s Profile</h1>
-    </header>
-    <div class="profile-pic-div">
-        <img src="../../public/images/blank-profile-pic.png" id="photo">
-        <input type="file" id="file">
-        <label for="file" id="uploadBtn">Choose Photo</label>
+<div class="container">
+    <div class="row">
+        <div class="col-small-4">
+            <div class="card" style="width: 18rem;">
+                {{!-- save image seperately, not in user sql db --}}
+                <img src="{{image}}" class="card-img-top">
+                <div class="card-body">
+                    <h5 class="card-title">{{user.firstname}} {{user.lastname}}</h5>
+                </div>
+            </div>
+        </div>
     </div>
-    <div>
-        {{status}}
-    </div>
 
-</body>
-</html>
+    <div class="card mt-4">
+        {{#each user.firstname}}
+        <div>{{status.detail}}</div>
+        {{/each}}
+    </div>
+</div>
+
+
+{{!-- <div class="col-sm-4">
+    <h1>Profile</h1>
+    <p>Firstname: <span class="red">{{user.firstname}}</span></p>
+    <p>Lastname: <span class="red">{{user.lastname}}</span></p>
+    <p>Email: <span class="red">{{user.email}}</span></p>
+    {{#if user.location}}
+    <p>Location: <span class="red">{{user.location}}</span></p>
+    {{else}}
+    <p>Location: <span class="red">unknown</span></p>
+    {{/if}}
+</div>--}}
