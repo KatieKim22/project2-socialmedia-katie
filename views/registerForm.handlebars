@@ -3,7 +3,7 @@
     <p>Please fill in this form to create an account.</p>
     <hr>
 
-    <form class="register_form" action="/api/register" method="POST">
+    <form class="register_form" action="/register" method="POST">
         <label for="first_name"><b>First Name</b></label>
         <input type="text" placeholder="Enter First Name" name="first_name" id="first_name" required>
 
@@ -11,13 +11,13 @@
         <input type="text" placeholder="Enter Last Name" name="last_name" id="last_name" required>
 
         <label for="email"><b>Email</b></label>
-        <input type="text" placeholder="Enter Email" name="email" id="regi_email" required>
+        <input type="text" placeholder="Enter Email" name="email" id="email" required>
 
         <label for="psw"><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" name="password" id="regi_psw" required>
+        <input type="password" placeholder="Enter Password" name="password" id="password" required>
 
         <label for="psw-repeat"><b>Repeat Password</b></label>
-        <input type="password" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" required>
+        <input type="password" placeholder="Repeat Password" name="psw_repeat" id="psw_repeat" required>
         <hr>
 
         {{!-- <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p> --}}
@@ -28,6 +28,11 @@
         </div>
 
     </form>
+    <div>
+        {{#if message}}
+        <h4 class="alert mt-4">{{message}}</h4>
+        {{/if}}
+    </div>
 </div>
 
 <script src="/public/js/register.js"></script>

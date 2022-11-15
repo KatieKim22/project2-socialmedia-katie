@@ -1,41 +1,48 @@
 // user routes - for login, log-out, register
 const router = require('express').Router();
 const bcrypt = require("bcrypt");
+const { RuleTester } = require('eslint');
 // assign variables with models
 const { User, Status } = require('../../models');
 
 // for register
 router.post('/register', async (req, res) => {
-    try {
-        const userData = await User.create(req.body);
+    console.log(req.body);
 
-        req.session.save(() => {
-            req.session.id = userData.id;
-            req.session.logged_in = true;
+    const { first_name, last_name, email, password, psw_repeat } = req.body;
 
-            res.status(200).json(userData);
-        });
-        res.render('/profile')
-    } catch (err) {
-        res.status(400).json(err)
-    }
-});
+    db.query('SELECT email FROM user WHERE email?', [email], async (err, result) => {
+        if (err) {
+            console.log(err);
+        }
 
-// check validity
-router.post('/register', function (req, res, next) {
+        if (result.length > 0) {
+            return res.render('register', {
+                message: 'That email is already in use'
+            })
+        } else if (password !== psw_repeat) {
+            return res.render('register', {
+                message: 'Password do not match'
+            })
+        }
 
-    req.check('email', 'Invalid email address').isEmail();
-    req.check('password', 'Password is invalid').isLength({ min: 4 });
+        let hashedPassword = await bcrypt.hash(password, 8);
+        console.log(hashedPassword);
 
-    var errors = req.validationErrors();
-    if (errors) {
-        req.session.errors = errors;
-        req.session.success = false;
-    } else {
-        req.session.success = true;
-    }
-    res.redirect('/');
+        db.query('INSERT INTO user SET ?', { firstName: first_name, lastName: last_name, email: email, password: hashedPassword }, (err, result) => {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(result)
+                return res.render('register', {
+                    message: 'User registered'
+                })
+            }
+        })
+    });
+
 })
+
 
 // login
 router.post('/login', async (req, res) => {
