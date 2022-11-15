@@ -1,20 +1,15 @@
+// fix routes
+
 const router = require('express').Router();
 const { Profile, Status } = require('../../models')
 
 /* GET posts index /posts */
-router.get('/', (req, res, next) => {
-    res.send('posts');
-});
-
-/* GET posts new /posts/new */
-router.get('/new', (req, res, next) => {
-    res.send('/posts/new');
+router.get('/', (req, res,) => {
+    res.render('profile');
 });
 
 /* POST posts create /posts */
-router.post('/', (req, res, next) => {
-    res.send('CREATE /posts');
-});
+
 
 /* GET posts show /posts/:id */
 router.get('/:id', (req, res, next) => {

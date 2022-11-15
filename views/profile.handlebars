@@ -10,12 +10,20 @@
             </div>
         </div>
     </div>
+    {{!-- update status button --}}
+    <form class="form-inline my-2 my-lg-0">
+        <a href="/post">
+            <button class="btn btn-outline-success my-2 my-sm-0 createStatusBtn" type="submit">Update status</button>
+        </a>
+    </form>
 
+    {{!-- status history cards --}}
     <div class="card mt-4">
         {{#each user.firstname}}
         <div>{{status.detail}}</div>
         {{/each}}
     </div>
+
 </div>
 
 

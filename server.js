@@ -10,7 +10,7 @@ const exphbs = require('express-handlebars');
 const hbs = exphbs.create({});
 
 const sequelize = require('./config/connection');
-const sequelizeStore = require('connect-session-sequelize')(session.Store);
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -18,7 +18,10 @@ const PORT = process.env.PORT || 5000;
 app.use(session({
     secret: "max_secret",
     resave: true,
-    saveUninitialized: true
+    saveUninitialized: true,
+    store: new SequelizeStore({
+        db: sequelize
+    })
 }));
 
 app.use(express.json());
