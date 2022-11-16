@@ -1,9 +1,18 @@
-<div id="status-update-form">
-    <form>
-        <label for="post">Update your status</label>
-        <input type="text" id="status_post" name="post">
-        <input type="submit" value="submit" id="status_submit">
-    </form>
-</div>
+<form action="/profile" method="POST">
+
+    <div class="card">
+        <h5 class="card-header">What's in your mind?</h5>
+
+        <div class="card-body">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                </div>
+                <textarea class="form-control" aria-label="With textarea"></textarea>
+            </div>
+            <a href="#" class="btn btn-primary">Update</a>
+        </div>
+    </div>
+
+</form>
 
 <script src="/public/js/profile.js"></script>

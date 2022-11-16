@@ -2,16 +2,24 @@ const router = require('express').Router();
 const { Status } = require('../../models');
 const withAuth = require('../../public/utils/auth');
 
+router.get('/:id', (req, res) => {
+
+})
+
+
 // status post
-router.post('/', withAuth, async (req, res) => {
+router.post('/post', withAuth, async (req, res) => {
+
     try {
         const newStatus = await Status.create({
-            ...req.body,
-            user_id: req.session.user_id,
+            title: req.body.title,
+            text: req.body.text,
+            user_id: req.session.user_id
         })
-        res.status(200).json(newStatus);
+        newStatus.save()
+        res.redirect('/profile');
     } catch (err) {
-        res.status(400).json(err)
+        res.render('/profile')
     }
 })
 

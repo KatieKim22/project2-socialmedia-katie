@@ -20,5 +20,9 @@ router.get('/profile', async (req, res) => {
     res.render("profile")
 })
 
+router.get('/post', async (req, res) => {
+    res.render("post")
+})
+
 module.exports = router;
 
