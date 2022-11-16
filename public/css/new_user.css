@@ -1,0 +1,89 @@
+
+
+h1 {
+    width: 60px;
+    font-size: xx-large;
+    margin-left: 170px;
+    position: fixed;
+    padding: 10px;
+}
+
+#instructions {
+    font-size: x-large;
+    margin-left: 5%;
+    text-decoration: underline;
+    -webkit-text-decoration-color: rgb(234, 94, 94);
+    text-decoration-color: rgb(234, 94, 94);
+    padding-top: 45px;
+}
+
+.register_form {
+    width: 330px;
+    height: 15%;
+    display: flex;
+    flex-wrap: wrap;
+    border: solid 4px black;
+    padding: 40px;
+    margin: 30px;
+    gap:10px;
+    font-size: x-large;
+}
+
+input {
+    line-height: 20px;
+    font-size: x-large;
+}
+
+.container-signin {
+display: flex;
+align-content: flex-end;
+}
+
+button:hover {
+    color: rgb(175, 246, 113);
+    background-color: green;
+}
+
+@media only screen and (max-width: 576px) {
+    h1 {
+        margin-left: 78px;
+    }
+    
+    #instructions {
+        width: 300px;
+    }
+    
+    .register_form {
+        width: 220px;
+        padding: 20px;
+        margin: 10px;
+        font-size: large;
+    }
+
+    input {
+        line-height: 15px;
+        font-size: large;
+    }
+}
+
+@media only screen and (min-width: 850px) {
+    h1 {
+        margin-left: 205px;
+    }
+    
+    #instructions {
+        margin-left: 80px;
+    }
+
+    .register_form {
+        width: 390px;
+        padding: 60px;
+        margin: 30px;
+        font-size: xx-large;
+    }
+
+    input {
+        line-height: 25px;
+        font-size: x-large;
+    }
+}
