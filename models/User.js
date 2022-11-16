@@ -1,34 +1,73 @@
 const { Model, DataTypes } = require('sequelize');
-const sequelize = require('../config/connection')
+const bcrypt = require('bcrypt');
+const sequelize = require('../config/connection');
 
-class User extends Model {}
+
+class User extends Model {
+    checkPassword(loginPW) {
+        return bcrypt.compareSync(loginPW, this.password); s
+    }
+}
 
 User.init(
     {
-        first: {
-            type: DataTypes.STRING
+        id: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            primaryKey: true,
+            autoIncrement: true,
         },
-        last: {
-            type: DataTypes.STRING
+        firstName: {
+            type: DataTypes.STRING,
+            allowNull: false,
         },
-        user: {
-            type: DataTypes.STRING
+        lastName: {
+            type: DataTypes.STRING,
+            allowNull: false,
         },
-        pass: {
-            type: DataTypes.STRING
+
+        password: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            validate: {
+                len: [4],
+            }
         },
         email: {
-            type: DataTypes.STRING
+            type: DataTypes.STRING,
+            allowNull: false,
+            unique: true,
+            validate: {
+                isEmail: true,
+            },
         },
-        location: {
-            type:DataTypes.STRING
-        }
+
     },
     {
+        hooks: {
+            beforeCreate: async (newUserData) => {
+                newUserData.password = await bcrypt.hash(newUserData.password, 10);
+                return newUserData;
+            },
+            beforeUpdate: async (updatedUserData) => {
+                updatedUserData.password = await bcrypt.hash(updatedUserData.password, 10);
+                return updatedUserData;
+            }
+
+        },
         sequelize,
-        timestanp: false,
+        timestamps: false,
+        freezeTableName: true,
         underscored: true,
+        modelName: 'user'
     }
 );
 
-module.exports = Book;
+module.exports = User;
+
+        // user: {
+        //     type: DataTypes.STRING
+        // },
+                // location: {
+        //     type: DataTypes.STRING
+        // }
