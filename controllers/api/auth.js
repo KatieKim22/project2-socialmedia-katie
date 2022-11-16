@@ -35,7 +35,7 @@ let checkInput = (user) => {
     })
 }
 
-// 5000/api/auth/register
+// 5000/api/auth/register?
 router.post('/register', async (req, res) => {
     console.log(req.body);
     try {
