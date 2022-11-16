@@ -1,35 +1,41 @@
-// fix routes
-
 const router = require('express').Router();
-const { Profile, Status } = require('../../models')
+const { Status } = require('../../models');
+const withAuth = require('../../public/utils/auth');
 
-/* GET posts index /posts */
-router.get('/', (req, res,) => {
-    res.render('profile');
-});
+// status post
+router.post('/', withAuth, async (req, res) => {
+    try {
+        const newStatus = await Status.create({
+            ...req.body,
+            user_id: req.session.user_id,
+        })
+        res.status(200).json(newStatus);
+    } catch (err) {
+        res.status(400).json(err)
+    }
+})
 
-/* POST posts create /posts */
+
+router.delete('/:id', withAuth, async (req, res) => {
+    try {
+        const statusData = await Status.destroy({
+            where: {
+                id: req.params.id,
+                user_id: req.session.user_id,
+            },
+        })
+
+        if (!statusData) {
+            res.status(400).json({ message: 'no status to delete with this id' })
+            return;
+        }
+        res.status(200).json(statusData);
+    } catch (err) {
+        res.status(500).json(err)
+    }
+})
 
 
-/* GET posts show /posts/:id */
-router.get('/:id', (req, res, next) => {
-    res.send('SHOW /post/:id');
-});
-
-/* GET posts edit /posts/:id/edit */
-router.get('/:id/edit', (req, res, next) => {
-    res.send('EDIT /posts/:id/edit');
-});
-
-/* PUT posts update /posts/:id */
-router.get('/:id', (req, res, next) => {
-    res.send('UPDATE /posts/:id');
-});
-
-/* DELETE posts destroy /posts/:id */
-router.get('/:id', (req, res, next) => {
-    res.send('DELETE /posts/:id');
-});
 
 
 module.exports = router;

@@ -16,5 +16,9 @@ router.get('/register', async (req, res) => {
     res.render("registerForm")
 })
 
+router.get('/profile', async (req, res) => {
+    res.render("profile")
+})
+
 module.exports = router;
 

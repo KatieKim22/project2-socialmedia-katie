@@ -6,42 +6,7 @@ const { RuleTester } = require('eslint');
 const { User, Status } = require('../../models');
 
 // for register
-router.post('/register', async (req, res) => {
-    console.log(req.body);
 
-    const { first_name, last_name, email, password, psw_repeat } = req.body;
-
-    db.query('SELECT email FROM user WHERE email?', [email], async (err, result) => {
-        if (err) {
-            console.log(err);
-        }
-
-        if (result.length > 0) {
-            return res.render('register', {
-                message: 'That email is already in use'
-            })
-        } else if (password !== psw_repeat) {
-            return res.render('register', {
-                message: 'Password do not match'
-            })
-        }
-
-        let hashedPassword = await bcrypt.hash(password, 8);
-        console.log(hashedPassword);
-
-        db.query('INSERT INTO user SET ?', { firstName: first_name, lastName: last_name, email: email, password: hashedPassword }, (err, result) => {
-            if (err) {
-                console.log(err);
-            } else {
-                console.log(result)
-                return res.render('register', {
-                    message: 'User registered'
-                })
-            }
-        })
-    });
-
-})
 
 
 // login
