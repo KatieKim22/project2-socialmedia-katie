@@ -1,0 +1,104 @@
+#status-update-form {
+    width: 400px;
+    height: 210px;
+    padding: 20px 30px;
+    margin: 20px;
+}
+
+label {
+    font-size: 28px;
+    margin-left: 62px;
+    margin-bottom: 12px;
+}
+
+#status_post {
+    width :60px;
+    height :160px;
+    line-height: 22px;
+    font-size: large;
+    inline-size: 320px;
+    margin: 10px;
+}
+
+#status_submit {
+    width :60px;
+    height :40px;
+    margin-left: 140px;
+}
+
+#status_submit:hover {
+    color: rgb(248, 248, 122);
+    background-color: #fe902d;
+}
+
+@media only screen and (max-width: 576px) {
+    #status-update-form {
+        width: 300px;
+        height: 200px;
+    }
+    
+    label {
+        font-size: 20px;
+        margin-left: 85px;
+    }
+    
+    #status_post {
+        width :290px;
+        height :120px;
+        line-height: 15px;
+        
+    }
+    
+    #status_submit {
+        margin-left: 125px;
+    }
+}
+
+@media only screen and (min-width: 850px) {
+    #status-update-form {       
+        width: 500px;
+        height: 200px;
+    }
+    
+    label {
+        font-size: 30px;
+        margin-left: 110px;
+    }
+    
+    #status_post {
+        width :420px;
+        height :160px;
+        line-height: 15px;
+        
+    }
+    
+    #status_submit {
+        width :80px;
+        height :50px;
+        margin-left: 180px;
+    }
+}
+
+@media only screen and (min-width: 1150px) {
+    #status-update-form {
+        width: 500px;
+        height: 200px;
+    }
+    
+    label {
+        font-size: 30px;
+        margin-left: 100px;
+    }
+    
+    #status_post {
+        width :400px;
+        height :200px;
+        line-height: 25px;
+        font-size: larger;
+    }
+    
+    #status_submit {
+        width :80px;
+        height :50px;
+    }
+}
