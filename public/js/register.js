@@ -8,7 +8,7 @@ const signupFormHandler = async (event) => {
     const psw_repeat = document.querySelector('#psw_repeat').value.trim();
 
     if (firstName && lastName && email && password && psw_repeat) {
-        const response = await fetch('/api/users', {
+        const response = await fetch('/api/register', {
             method: 'POST',
             body: JSON.stringify({ firstName, lastName, email, password }),
             headers: { 'Content-Type': 'application/json' },
