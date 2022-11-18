@@ -2,20 +2,19 @@
 const router = require('express').Router();
 const bcrypt = require("bcrypt");
 
-const { RuleTester } = require('eslint');
 // assign variables with models
 const { User } = require('../../models');
 
-let checkInput = (user) => {
+let checkInput = async (req, res) => {
+    const { email, password, psw_repeat } = req.body;
     return new Promise(async (resolve, reject) => {
         try {
-            const { first_name, last_name, email, password, psw_repeat } = req.body;
-
             let checkDup = await User.findOne({
                 where: {
                     email: email
                 }
             })
+            console.log("work please!!!!", checkDup)
             if (checkDup) {
                 resolve(false)
                 return res.render('registerForm', {
@@ -26,7 +25,7 @@ let checkInput = (user) => {
                     message: 'Password do not match'
                 })
             } else {
-                resolve(true)
+                return resolve(true)
             }
         } catch (err) {
             console.log(err)
@@ -37,33 +36,31 @@ let checkInput = (user) => {
 
 // 5000/api/auth/register?
 router.post('/register', async (req, res) => {
-    console.log(req.body);
+    console.log("Hello Hello", req.body);
+    const { first_name, last_name, email, password, psw_repeat } = req.body;
     try {
 
-        let inputlookgood = await checkInput(user)
+        let inputlookgood = await checkInput(req, res)
+        console.log("Pleaseeeeee")
         if (inputlookgood) {
-            const { first_name, last_name, email, password, psw_repeat } = req.body;
-
 
             let hashedPassword = bcrypt.hash(password, 8);
             console.log(hashedPassword);
 
-            User.create({ firstName: first_name, lastName: last_name, email: email, password: hashedPassword }), (err, result) => {
-                if (err) {
-                    console.log(err);
-                } else {
-                    console.log(result)
-                    return res.render('profile/:id', {
-                        message: 'User registered'
-                    })
-                }
+            const createNewUser = await User.create({ firstName: first_name, lastName: last_name, email: email, password: hashedPassword })
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(result)
+                res.status(201).json(createNewUser)
             }
         } else {
             return res.render('registerForm')
         }
 
     } catch (err) {
-
+        console.log(err)
+        res.status(400).json({ message: err.message })
     }
 })
 
