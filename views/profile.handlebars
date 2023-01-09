@@ -5,7 +5,7 @@
                 {{!-- save image seperately, not in user sql db --}}
                 {{!-- <img src="{{image}}" class="card-img-top"> --}}
                 <div class="card-body">
-                    <h5 class="card-title">{{user.firstname}} {{user.lastname}}</h5>
+                    {{!-- <h5 class="card-title">{{user.dataValues.firstname}} {{user.dataValues.lastname}}</h5> --}}
                 </div>
             </div>
         </div>
@@ -16,13 +16,25 @@
     </form>
 
     {{!-- status history cards --}}
-    {{#each status as |status|}}
-    <div class="card mt-4">
-        <p>{{status.title}}</p>
-        <div class="col-md-7">
-            <p>{{status.text}}</p>
-        </div>
-        <p>{{format_date status.date_created}}</p>
+    <div class="mainPosts">
+
+        {{#each status}}
+        <a href="/api/post/{{this.dataValues.id}}">
+            <div class="card">
+                <div class="card-header">
+                    <h5>{{this.dataValues.title}}</h5>
+                </div>
+                <div class="card-body">
+                    <blockquote class="blockquote mb-0">
+                        <p>{{this.dataValues.text}}</p>
+                        <footer class="blockquote-footer">{{this.dataValues.date_created}}
+                            {{this.dataValues.user_id}}
+                        </footer>
+                    </blockquote>
+                </div>
+            </div>
+        </a>
+        {{else}}
+         <h2>There is no post</h2>
+        {{/each}}
     </div>
-    {{/each}}
-</div>

@@ -1,27 +1,66 @@
 const router = require('express').Router();
-const { Status } = require('../../models');
-const withAuth = require('../../public/utils/auth');
+const { Status, User } = require('../../models');
+const withAuth = require('../../utils/withauth');
 
-router.get('/:id', (req, res) => {
+// const sequelize = require('../../config/connection');
+
+router.get('/', async (req, res) => {
+    // render status posts
+
+    const status = await Status.findAll()
+    // let loggedUser = await User.findOne({
+    //     where: { userName: req.body.userName }
+    // })
+    console.log(status)
+    return res.render('profile', { status: status })
 
 })
 
 
 // status post
-router.post('/post', withAuth, async (req, res) => {
+router.post('/', async (req, res) => {
+    let { title, text, date_created } = req.body;
+
+    // await sequelize.sync({ force: true });
 
     try {
         const newStatus = await Status.create({
-            title: req.body.title,
-            text: req.body.text,
-            user_id: req.session.user_id
+            title: title,
+            text: text,
+            date_created: date_created
         })
         newStatus.save()
-        res.redirect('/profile');
+        return res.redirect('/profile');
     } catch (err) {
-        res.render('/profile')
+        console.log(err)
+        return res.render('home')
     }
 })
+
+// update status
+
+router.put('/edit/:id', withAuth, async (req, res) => {
+    console.log('postID', req.params.id)
+
+    let { title, text, date_created } = req.body;
+    try {
+        let updateStatus = await Status.update({
+            title: title,
+            text: text,
+            date_created: date_created
+        }, {
+            where: {
+                id: req.params.id
+            }
+        })
+        return res.redirect('/profile')
+    } catch (err) {
+        console.log(err)
+        res.status(400).json({ message: err.message })
+        return res.render('/profile')
+    }
+})
+
 
 
 router.delete('/:id', withAuth, async (req, res) => {
@@ -29,7 +68,6 @@ router.delete('/:id', withAuth, async (req, res) => {
         const statusData = await Status.destroy({
             where: {
                 id: req.params.id,
-                user_id: req.session.user_id,
             },
         })
 
@@ -37,7 +75,7 @@ router.delete('/:id', withAuth, async (req, res) => {
             res.status(400).json({ message: 'no status to delete with this id' })
             return;
         }
-        res.status(200).json(statusData);
+        return res.redirect('/profile')
     } catch (err) {
         res.status(500).json(err)
     }

@@ -1,6 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcrypt')
 const session = require('express-session');
+const methodOveriide = require('method-override');
 const expressValidator = require('express-validator');
 const routes = require('./controllers');
 const path = require('path');
@@ -17,7 +18,7 @@ const PORT = process.env.PORT || 5000;
 
 app.use(session({
     secret: "max_secret",
-    resave: true,
+    resave: false,
     saveUninitialized: true,
     store: new SequelizeStore({
         db: sequelize
@@ -26,6 +27,7 @@ app.use(session({
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(methodOveriide('_method'))
 
 app.use(express.static(path.join(__dirname, 'public')));
 

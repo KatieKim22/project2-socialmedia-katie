@@ -16,8 +16,16 @@ router.get('/register', async (req, res) => {
     res.render("registerForm")
 })
 
-router.get('/profile/', async (req, res) => {
-    res.render("profile")
+router.get('/profile', async (req, res) => {
+    // render status posts
+
+    const status = await Status.findAll()
+    // let loggedUser = await User.findOne({
+    //     where: { userName: req.body.userName }
+    // })
+    console.log(status)
+    return res.render('profile', { status: status })
+
 })
 
 router.get('/post', async (req, res) => {
