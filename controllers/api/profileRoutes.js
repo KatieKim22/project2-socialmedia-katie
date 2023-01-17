@@ -1,35 +1,87 @@
-// fix routes
-
 const router = require('express').Router();
-const { Profile, Status } = require('../../models')
+const { Status, User } = require('../../models');
+const withAuth = require('../../utils/withauth');
 
-/* GET posts index /posts */
-router.get('/', (req, res,) => {
-    res.render('profile');
-});
+// const sequelize = require('../../config/connection');
 
-/* POST posts create /posts */
+router.get('/', async (req, res) => {
+    // render status posts
+
+    const status = await Status.findAll()
+    // let loggedUser = await User.findOne({
+    //     where: { userName: req.body.userName }
+    // })
+    console.log(status)
+    return res.render('profile', { status: status })
+
+})
 
 
-/* GET posts show /posts/:id */
-router.get('/:id', (req, res, next) => {
-    res.send('SHOW /post/:id');
-});
+// status post
+router.post('/', async (req, res) => {
+    let { title, text, date_created } = req.body;
 
-/* GET posts edit /posts/:id/edit */
-router.get('/:id/edit', (req, res, next) => {
-    res.send('EDIT /posts/:id/edit');
-});
+    // await sequelize.sync({ force: true });
 
-/* PUT posts update /posts/:id */
-router.get('/:id', (req, res, next) => {
-    res.send('UPDATE /posts/:id');
-});
+    try {
+        const newStatus = await Status.create({
+            title: title,
+            text: text,
+            date_created: date_created
+        })
+        newStatus.save()
+        return res.redirect('/profile');
+    } catch (err) {
+        console.log(err)
+        return res.render('home')
+    }
+})
 
-/* DELETE posts destroy /posts/:id */
-router.get('/:id', (req, res, next) => {
-    res.send('DELETE /posts/:id');
-});
+// update status
+
+router.put('/edit/:id', withAuth, async (req, res) => {
+    console.log('postID', req.params.id)
+
+    let { title, text, date_created } = req.body;
+    try {
+        let updateStatus = await Status.update({
+            title: title,
+            text: text,
+            date_created: date_created
+        }, {
+            where: {
+                id: req.params.id
+            }
+        })
+        return res.redirect('/profile')
+    } catch (err) {
+        console.log(err)
+        res.status(400).json({ message: err.message })
+        return res.render('/profile')
+    }
+})
+
+
+
+router.delete('/:id', withAuth, async (req, res) => {
+    try {
+        const statusData = await Status.destroy({
+            where: {
+                id: req.params.id,
+            },
+        })
+
+        if (!statusData) {
+            res.status(400).json({ message: 'no status to delete with this id' })
+            return;
+        }
+        return res.redirect('/profile')
+    } catch (err) {
+        res.status(500).json(err)
+    }
+})
+
+
 
 
 module.exports = router;

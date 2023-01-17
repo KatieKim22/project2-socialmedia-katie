@@ -11,11 +11,10 @@ Status.init(
             primaryKey: true,
             autoIncrement: true,
         },
-        name: {
+        title: {
             type: DataTypes.STRING,
-            allowNull: false,
         },
-        detail: {
+        text: {
             type: DataTypes.STRING,
         },
         date_created: {
